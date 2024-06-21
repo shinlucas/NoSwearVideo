@@ -7,6 +7,7 @@ Replace Swear Voice with natural words and speaker's voice
 ## 🔊 상세 소개
 - 추가 예정
 - cpu 사용시 openvoice 패키지 코드 수정
+- checkpoing.ph 용량이 커서 googledrive를 통해 다운로드하도록 추가예정
 
 ## 💡 주요 기능
 - 메인 페이지 - 로딩 페이지 - 송출 페이지
