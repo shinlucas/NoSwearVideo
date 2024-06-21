@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 import time
 import os
+import requests
 from openvoice.api import ToneColorConverter
 from melo.api import TTS
 
@@ -22,6 +23,14 @@ def initialize_models():
 
     if not models_initialized:
         start_time = time.time()
+        dest_path = './checkpoints_v2/converter/checkpoint.pth'
+        if not os.path.exists(dest_path):
+        # Dropbox 공유 링크를 직접 다운로드 링크로 변경합니다.
+            dropbox_url = 'https://www.dropbox.com/scl/fi/nk8v3tcta16p7ris2ht38/checkpoint.pth?rlkey=ag193iwo5fv333bt0q4ohoj0m&st=0z3udsrz&dl=1'
+            download_file_from_dropbox(dropbox_url, dest_path)
+            print(f"Downloaded file to {dest_path}")
+        else:
+            print(f"File already exists at {dest_path}")
 
         wisper_model = whisper.load_model("medium")
         print(f"Whisper model loaded in {time.time() - start_time} seconds")
@@ -51,6 +60,15 @@ def initialize_models():
     else:
         print("Models are already initialized")
 
+def download_file_from_dropbox(url, dest_path):
+    response = requests.get(url, stream=True)
+    response.raise_for_status()
+    
+    with open(dest_path, 'wb') as file:
+        for chunk in response.iter_content(chunk_size=32768):
+            if chunk:
+                file.write(chunk)
+
 # 디렉터리 경로
 video_path = "./video"
 temp_path = "./temp"
@@ -59,6 +77,7 @@ output_path = "./static/output"
 target_dict = ['시발새끼', "씨발새끼", "씨발", "존나", "병신새끼", "새끼", '씨발 새끼', 
                '시발 새끼', '개새끼', '개 새끼','좆같은데', '족 같은데', '족같은데', '썅년', '지랄', 
                '좆까', '조까', '족가', '미친', '미친새끼', '미친 새끼', '등신', '병신', '병신 새끼']
+
 
 def get_target_dict_internal():
     return target_dict
