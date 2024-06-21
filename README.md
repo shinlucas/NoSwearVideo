@@ -23,6 +23,7 @@ Replace Swear Voice with natural words and speaker's voice
   
 ## 📢 주의사항
 - 구동시, app.py의 주석을 확인해주세요
+- requirements.txt 설치 이후 수동으로 python -m unidic download 필요
 - cpu 사용시 다음을 참고(필수, https://github.com/myshell-ai/OpenVoice/pull/262/files)
 
 ## 🔍외부링크
